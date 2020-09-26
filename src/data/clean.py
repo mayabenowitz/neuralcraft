@@ -1,10 +1,13 @@
+import sys
+import os
 import pandas as pd
 import numpy as np
 
+dirname = os.path.dirname(os.path.abspath(".."))
 
 def clean_lpc_data(
-    input_filepath="../data/raw/lpc_by_industry.csv",
-    output_filepath="../data/processed/lpc_by_industry.csv",
+    input_filepath=dirname+'/data/raw/lpc_by_industry.csv',
+    output_filepath=dirname+"/data/processed/lpc_by_industry.csv",
 ):
     df = pd.read_csv(input_filepath, low_memory=False)
 
@@ -40,21 +43,10 @@ def clean_lpc_data(
         lambda s: s.lstrip(" ").lstrip(", ")
     )
 
-    pd.to_csv(output_filepath, index=False)
+    df.to_csv(output_filepath, index=False)
 
 
-def clean_prod_growth_data(input_filepath, output_filepath):
-    """Cleans the productivity_growth.csv and 
-    productivity_growth_by_industry.csv datasets
-        
-    Params
-    -------
-    input_filepath: '../data/raw/productivity_growth.csv' or
-    '../data/raw/productivity_growth_by_industry.csv'
-
-    output_filepath: '../data/processed/productivity_growth.csv' or
-    '../data/processed/productivity_growth_by_industry.csv'
-    """
+def clean_prod_growth_ind_data(input_filepath, output_filepath):
 
     df = pd.read_csv(input_filepath)
     df.drop(
@@ -75,7 +67,47 @@ def clean_prod_growth_data(input_filepath, output_filepath):
         inplace=True,
     )
 
+    df.rename(columns={'Time': 'Year'}, inplace=True)
     df["Subject"] = df["Subject"].map(lambda s: s.strip(" "))
     df["Activity"] = df["Activity"].map(lambda s: s.strip(" "))
     df["Year"].astype(int)
-    pd.to_csv(output_filepath, index=False)
+    df.to_csv(output_filepath, index=False)
+
+
+def clean_prod_growth_data(input_filepath, output_filepath):
+    df = pd.read_csv(input_filepath)
+    df.drop(
+        columns=[
+            "LOCATION",
+            "SUBJECT",
+            "MEASURE",
+            "TIME",
+            "Unit Code",
+            "PowerCode Code",
+            "PowerCode",
+            "Reference Period Code",
+            "Reference Period",
+            "Flag Codes",
+            "Flags",
+        ],
+        inplace=True,
+    )
+
+    df.rename(columns={'Time': 'Year'}, inplace=True)
+    df["Subject"] = df["Subject"].map(lambda s: s.strip(" "))
+    df["Year"].astype(int)
+    df.to_csv(output_filepath, index=False)
+
+
+if __name__ == "__main__":
+    print('Cleaning data...')
+    clean_lpc_data()
+    clean_prod_growth_data(
+        input_filepath=dirname+'/data/raw/productivity_growth.csv', 
+        output_filepath=dirname+'/data/processed/productivity_growth.csv'
+    )
+    clean_prod_growth_ind_data(
+        input_filepath=dirname+'/data/raw/productivity_growth_by_industry.csv',
+        output_filepath=dirname+'/data/processed/productivity_growth_by_industry.csv'
+    )
+    print('Data cleaned!')
