@@ -4,14 +4,26 @@ import logging
 from pathlib import Path
 from dotenv import find_dotenv, load_dotenv
 
+from clean import clean_lpc_data, clean_prod_growth_data
+
 
 @click.command()
 @click.argument('input_filepath', type=click.Path(exists=True))
 @click.argument('output_filepath', type=click.Path())
-def main(input_filepath, output_filepath):
+def main():
     """ Runs data processing scripts to turn raw data from (../raw) into
         cleaned data ready to be analyzed (saved in ../processed).
     """
+    clean_lpc_data()
+    clean_prod_growth_data(
+        input_filepath='../data/raw/productivity_growth.csv', 
+        output_filepath='../data/processed/productivity_growth.csv'
+    )
+    clean_prod_growth_data(
+        input_filepath='../data/raw/productivity_growth_by_industry.csv',
+        output_filepath='../data/processed/productivity_growth_by_industry.csv'
+    )
+    
     logger = logging.getLogger(__name__)
     logger.info('making final data set from raw data')
 
