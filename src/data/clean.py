@@ -30,9 +30,45 @@ def clean_lpc_data() -> pd.DataFrame:
         .map(lambda s: ''.join([i for i in s if not i.isdigit()]))
         
     df['value'] = df['value'].replace('n.a.', np.nan)
+    df['Year'] = df['Year'].astype(int)
 
     df['Industry'] = df['Industry'].map(lambda s: s.lstrip(' '))
     df['Industry Sector'] = df['Industry Sector']\
         .map(lambda s: s.lstrip(' ').lstrip(', '))
 
+    return df
+
+    
+def clean_prod_growth_data(path) -> pd.DataFrame:
+    """Cleans the productivity_growth.csv and 
+    productivity_growth_by_industry.csv datasets
+        
+    Params
+    -------
+    path: '../data/raw/productivity_growth.csv' or
+    '../data/raw/productivity_growth_by_industry.csv'
+    """
+    
+    df = pd.read_csv(path)
+    df.drop(
+    columns=[
+        'LOCATION',
+        'SUBJECT',
+        'MEASURE',
+        'ACTIVITY',
+        'TIME',
+        'Unit Code',
+        'PowerCode Code',
+        'PowerCode',
+        'Reference Period Code',
+        'Reference Period',
+        'Flag Codes',
+        'Flags'
+        ],
+    inplace=True
+    )
+
+    df['Subject'] = df['Subject'].map(lambda s: s.strip(' '))
+    df['Activity'] = df['Activity'].map(lambda s: s.strip(' '))
+    df['Year'].astype(int)
     return df
