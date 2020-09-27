@@ -11,7 +11,8 @@ import plotly.express as px
 from src.visualization.vis import query_prod_growth
 
 st.beta_set_page_config(
-    layout="centered"
+    layout="centered",
+    page_icon = "🌌"
 )
 
 @st.cache
