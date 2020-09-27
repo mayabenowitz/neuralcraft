@@ -40,26 +40,28 @@ def prod_growth_plot(
             width=800,
             template="ggplot2",
             color=color,
-            trendline=trendline,
-            title="Productivity Growth in OECD Countries"
+            trendline=trendline
         )
     
     fig.update_layout(
             title={
                     'text': "Productivity Growth in OECD Countries",
-                    'y':0.98,
+                    'y':.98,
                     'x':0.25,
                     'xanchor': 'center',
                     'yanchor': 'top'
             },
+            yaxis_title="Annual Change",
+            yaxis=dict(ticksuffix="%"),
             font = dict(
                 family="arial",
                 size=14,
-            )
+            ),
+            hovermode='x'
         )
     return fig
 
-st.title('Can We Solve The Looming Skills Crisis?')
+st.title('The Looming Productivity Crisis.')
 st.markdown("---")
 st.sidebar.markdown('### Menu')
 
