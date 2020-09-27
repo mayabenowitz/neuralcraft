@@ -1,6 +1,6 @@
-neuralcraft
+# neuralcraft
 ## A Free Massively Multiplayer Online Learning Platform
-==============================
+
 
 This is a research-based repository regarding the Neuralcraft project and its direction. Our intent is to serve a standalone data application that clearly communicates the project's objectives and vision through data and design. More too come soon!
 
