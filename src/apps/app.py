@@ -24,18 +24,31 @@ def load_prod_growth_data():
 df = load_prod_growth_data()
 
 def prod_growth_plot(
-    df, countries, subject, kind="line", color="Country", activity=None, trendline=None
+    df, countries, subject, color="Country", activity=None, trendline=None
 ):
     user_query = query_prod_growth(countries=countries, subject=subject)
     df = df.query(user_query)
 
-    if kind == "line":
-        return px.line(
+    if trendline is None:
+        fig = px.line(
             df, x="Year", y="Value", width=750, template="ggplot2", color=color
         )
-
-    if kind == "scatter":
-        return px.scatter(
+        fig.update_layout(
+            title={
+                    'text': "Productivity Growth in OECD Countries",
+                    'y':0.98,
+                    'x':0.25,
+                    'xanchor': 'center',
+                    'yanchor': 'top'
+            },
+            font = dict(
+                family="arial",
+                size=14,
+            )
+        )
+        return fig
+    if trendline is not None:
+        fig = px.scatter(
             df,
             x="Year",
             y="Value",
@@ -43,23 +56,41 @@ def prod_growth_plot(
             template="ggplot2",
             color=color,
             trendline=trendline,
+            title="Productivity Growth in OECD Countries"
         )
+        return fig
 
 st.title('Can We Solve The Looming Skills Crisis?')
 st.markdown("---")
 st.sidebar.markdown('### Menu')
 
 countries = df['Country'].unique().tolist()
-options_1 = st.sidebar.multiselect("Select Countries", countries)
+measures = df['Subject'].unique().tolist()
+trendlines = [None, 'ols', 'lowess']
 
+def format_trendlines(x):
+    if x == 'ols':
+        return 'OLS Linear Regression'
+    if x == 'lowess':
+        return 'LOWESS'
+
+country_options = st.sidebar.multiselect("Select Countries", countries)
+measure_options = st.sidebar.selectbox("Select Measure", measures)
+trendline_options = st.sidebar.radio(
+    'Select Trendline', 
+    trendlines, 
+    format_func=format_trendlines
+)
+
+# TO DO: 1) if no data available for given country-measure pair display markdown
+# 2) give user option to display data dictionary
 try:
     st.plotly_chart(
         prod_growth_plot(
             df,
-            kind='line',
-            countries=options_1, 
-            subject='GDP per hour worked, constant prices',
-            trendline='lowess'
+            countries=country_options, 
+            subject=measure_options,
+            trendline=trendline_options
         ),
         use_container_width=False
     )
@@ -67,10 +98,8 @@ except ValueError:
     st.plotly_chart(
         prod_growth_plot(
             df,
-            kind='line',
             countries=['G7'], 
-            subject='GDP per hour worked, constant prices',
-            trendline='lowess'
+            subject='GDP per hour worked, constant prices'
         ),
         use_container_width=False
     )
