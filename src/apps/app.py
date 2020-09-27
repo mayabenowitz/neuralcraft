@@ -63,6 +63,8 @@ def prod_growth_plot(
 
 st.title('The Looming Productivity Crisis.')
 st.markdown("---")
+st.sidebar.markdown('#  🌌 Neuralcraft')
+st.sidebar.markdown('---')
 st.sidebar.markdown('### Menu')
 
 countries = df['Country'].unique().tolist()

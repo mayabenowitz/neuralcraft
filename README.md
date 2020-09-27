@@ -1,7 +1,9 @@
 neuralcraft
+## A Free Massively Multiplayer Online Learning Platform
 ==============================
 
-A Free Massively Multiplayer Online Learning Platform
+This is a research-based repository regarding the Neuralcraft project and its direction. Our intent is to serve a standalone data application that clearly communicates the project's objectives and vision.
+
 
 Project Organization
 ------------
@@ -33,6 +35,10 @@ Project Organization
     │
     ├── setup.py           <- makes project pip installable (pip install -e .) so src can be imported
     ├── src                <- Source code for use in this project.
+        │          
+        ├── apps
+        │    └── app.py    <- Streamlit application
+        │        
     │   ├── __init__.py    <- Makes src a Python module
     │   │
     │   ├── data           <- Scripts to download or generate data
@@ -53,5 +59,3 @@ Project Organization
 
 
 --------
-
-<p><small>Project based on the <a target="_blank" href="https://drivendata.github.io/cookiecutter-data-science/">cookiecutter data science project template</a>. #cookiecutterdatascience</small></p>
