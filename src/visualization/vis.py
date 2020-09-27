@@ -1,5 +1,11 @@
+import os
+import sys
+ROOT_DIR = os.path.dirname(os.path.abspath('..'))
+sys.path.insert(0, os.path.abspath(ROOT_DIR))
+
 import pandas as pd
 import plotly.express as px
+import streamlit as st
 
 
 def query_prod_growth(countries, subject):
