@@ -18,7 +18,7 @@ def prod_growth_plot(
         fig = px.line(
             df, x="Year", y="Value", width=1000, template="ggplot2", color=color
         )
-        fig.show()
+        return fig
     if kind == "scatter":
         fig = px.scatter(
             df,
@@ -29,4 +29,4 @@ def prod_growth_plot(
             color=color,
             trendline=trendline,
         )
-        fig.show()
+        return fig
