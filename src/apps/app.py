@@ -31,9 +31,22 @@ def prod_growth_plot(
 
     if trendline is None:
         fig = px.line(
-            df, x="Year", y="Value", width=750, template="ggplot2", color=color
+            df, x="Year", y="Value", width=800, template="ggplot2", color=color
         )
-        fig.update_layout(
+    
+    if trendline is not None:
+        fig = px.scatter(
+            df,
+            x="Year",
+            y="Value",
+            width=800,
+            template="ggplot2",
+            color=color,
+            trendline=trendline,
+            title="Productivity Growth in OECD Countries"
+        )
+    
+    fig.update_layout(
             title={
                     'text': "Productivity Growth in OECD Countries",
                     'y':0.98,
@@ -46,19 +59,7 @@ def prod_growth_plot(
                 size=14,
             )
         )
-        return fig
-    if trendline is not None:
-        fig = px.scatter(
-            df,
-            x="Year",
-            y="Value",
-            width=750,
-            template="ggplot2",
-            color=color,
-            trendline=trendline,
-            title="Productivity Growth in OECD Countries"
-        )
-        return fig
+    return fig
 
 st.title('Can We Solve The Looming Skills Crisis?')
 st.markdown("---")
