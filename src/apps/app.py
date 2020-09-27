@@ -11,8 +11,6 @@ import plotly.express as px
 from src.visualization.vis import query_prod_growth
 
 st.beta_set_page_config(
-    page_title="Neuralcraft",
-    page_icon="🧊",
     layout="centered"
 )
 
@@ -76,25 +74,27 @@ def format_trendlines(x):
         return 'LOWESS'
 
 country_options = st.sidebar.multiselect("Select Countries", countries)
-measure_options = st.sidebar.selectbox("Select Measure", measures)
+measure_options = st.sidebar.selectbox("Select Y-axis", measures)
 trendline_options = st.sidebar.radio(
     'Select Trendline', 
     trendlines, 
     format_func=format_trendlines
 )
 
-# TO DO: 1) if no data available for given country-measure pair display markdown
-# 2) give user option to display data dictionary
+# TO DO: give user option to display data dictionary
 try:
-    st.plotly_chart(
-        prod_growth_plot(
-            df,
-            countries=country_options, 
-            subject=measure_options,
-            trendline=trendline_options
-        ),
-        use_container_width=False
-    )
+    try:
+        st.plotly_chart(
+            prod_growth_plot(
+                df,
+                countries=country_options, 
+                subject=measure_options,
+                trendline=trendline_options
+            ),
+            use_container_width=False
+        )
+    except KeyError:
+        st.error('Sorry No Data is Available!')
 except ValueError:
     st.plotly_chart(
         prod_growth_plot(
