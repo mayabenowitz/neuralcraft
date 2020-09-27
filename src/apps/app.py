@@ -87,6 +87,7 @@ trendline_options = st.sidebar.radio(
 )
 
 # TO DO: give user option to display data dictionary
+# TO DO: Add region and population data for region-based scatter plot and movie
 try:
     try:
         st.plotly_chart(
