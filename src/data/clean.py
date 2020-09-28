@@ -47,7 +47,6 @@ def clean_lpc_data(
 
 
 def clean_prod_growth_ind_data(input_filepath, output_filepath):
-
     df = pd.read_csv(input_filepath)
     df.drop(
         columns=[
@@ -99,6 +98,31 @@ def clean_prod_growth_data(input_filepath, output_filepath):
     df.to_csv(output_filepath, index=False)
 
 
+def clean_gdp_data(input_filepath, output_filepath):
+    df = pd.read_csv(input_filepath)
+    df.drop(
+        columns=[
+            'LOCATION',
+            'SUBJECT',
+            'MEASURE',
+            'TIME',
+            'Unit Code',
+            'Unit',
+            'PowerCode Code',
+            'PowerCode',
+            'Reference Period Code',
+            'Reference Period',
+            'Flag Codes',
+            'Flags'
+
+
+        ]
+    )
+    df.rename(columns={'Time': 'Year'}, inplace=True)
+    df['Year'].astype(int)
+    df.to_csv(output_filepath, index=False)
+    
+
 if __name__ == "__main__":
     print('Cleaning data...')
     clean_lpc_data()
@@ -109,5 +133,9 @@ if __name__ == "__main__":
     clean_prod_growth_ind_data(
         input_filepath=dirname+'/data/raw/productivity_growth_by_industry.csv',
         output_filepath=dirname+'/data/processed/productivity_growth_by_industry.csv'
+    )
+    clean_gdp_data(
+        input_filepath=dirname+'/data/raw/gdp_per_capita.csv',
+        output_filepath=dirname+'/data/processed/gdp_per_capita.csv'
     )
     print('Data cleaned!')
