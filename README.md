@@ -1,6 +1,6 @@
 # Neuralcraft
 
-This is a research-based repository regarding the Neuralcraft project and its direction. Our intent is to serve a standalone data application that clearly communicates the project's objectives and vision through data and design. More too come soon!
+This is a research-based repository regarding the Neuralcraft project and its direction. Our intent is to serve a standalone data application that clearly communicates the project's objectives and vision through data and design. Our first goal is to perform an in-depth analysis of the market we are entering through interactive data visualizations and storytelling. From there the plan is to embedd a survey, Figma prototypes, and a game document for A/B testing. More too come soon!
 
 For a HIGH level overview of the project check out our [pitch deck](https://github.com/mayabenowitz/neuralcraft/blob/master/reports/neuralcraft-2020-09-20.pdf).
 
