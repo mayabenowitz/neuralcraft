@@ -62,14 +62,16 @@ def prod_growth_plot(
         )
     return fig
 
-st.title('The Looming Productivity Crisis.')
+st.title('How The Looming Productivity Crisis Will Reshape Our World.')
 st.markdown("---")
-st.sidebar.markdown('#  🌌 Neuralcraft')
+st.sidebar.markdown('#  🌌 Neuralcraft Labs')
 st.sidebar.markdown('---')
 st.sidebar.markdown('### Menu')
 
 countries = df['Country'].unique().tolist()
 measures = df['Subject'].unique().tolist()
+measures.insert(0, measures[3])
+measures.pop(4)
 trendlines = [None, 'ols', 'lowess']
 
 def format_trendlines(x):
@@ -78,7 +80,7 @@ def format_trendlines(x):
     if x == 'lowess':
         return 'LOWESS'
 
-country_options = st.sidebar.multiselect("Select Countries", countries)
+country_options = st.sidebar.multiselect("Select Countries", countries, default=['G7'])
 measure_options = st.sidebar.selectbox("Select Y-axis", measures)
 trendline_options = st.sidebar.radio(
     'Select Trendline', 
@@ -87,26 +89,15 @@ trendline_options = st.sidebar.radio(
 )
 
 # TO DO: give user option to display data dictionary
-# TO DO: Add region and population data for region-based scatter plot and movie
 try:
-    try:
-        st.plotly_chart(
-            prod_growth_plot(
-                df,
-                countries=country_options, 
-                subject=measure_options,
-                trendline=trendline_options
-            ),
-            use_container_width=False
-        )
-    except KeyError:
-        st.error('Sorry No Data is Available!')
-except ValueError:
     st.plotly_chart(
         prod_growth_plot(
             df,
-            countries=['G7'], 
-            subject='GDP per hour worked, constant prices'
+            countries=country_options, 
+            subject=measure_options,
+            trendline=trendline_options
         ),
         use_container_width=False
     )
+except KeyError:
+    st.error('Sorry No Data is Available!')
