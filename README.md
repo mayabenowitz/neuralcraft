@@ -2,7 +2,7 @@
 
 This is a research-based repository regarding the Neuralcraft project and its direction. Our intent is to serve a standalone data application that clearly communicates the project's objectives and vision through data and design. More too come soon!
 
-For a HIGH level overview of the project check out our (pitch deck)[https://github.com/mayabenowitz/neuralcraft/blob/master/reports/neuralcraft-2020-09-20.pdf].
+For a HIGH level overview of the project check out our [pitch deck](https://github.com/mayabenowitz/neuralcraft/blob/master/reports/neuralcraft-2020-09-20.pdf)
 
 
 Project Organization
