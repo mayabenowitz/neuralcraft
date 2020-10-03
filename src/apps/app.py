@@ -41,17 +41,21 @@ def load_gdp_data():
     df = pd.read_csv(ROOT_DIR+'/data/processed/gdp_per_capita.csv')
     return df
 
-# load dataframes
+# load dataframes and name them
 df_prod = load_prod_growth_data()
 df_gdp = load_gdp_data()
-datasets = {'Productivity Growth': df_prod, 'GDP Per Capita': df_gdp}
+df_prod.name = 'Productivity Growth'
+df_gdp.name = 'GDP Per Capita'
+datasets = {df_prod.name: df_prod, df_gdp.name: df_gdp}
 
 # lineplots and scatterplots
 def prod_growth_plot(
     df, countries, subject, color="Country", activity=None, trendline=None
 ):
     user_query = query_prod_growth(countries=countries, subject=subject)
+    name = df.name
     df = df.query(user_query)
+    df.name = name
 
     if trendline is None:
         fig = px.line(
@@ -69,7 +73,25 @@ def prod_growth_plot(
             trendline=trendline
         )
     
-    fig.update_layout(
+    if df.name == 'productivity_growth':
+        fig.update_layout(
+                title={
+                        'text': "Productivity Growth in OECD Countries",
+                        'y':.98,
+                        'x':0.25,
+                        'xanchor': 'center',
+                        'yanchor': 'top'
+                },
+                yaxis_title="Annual Change",
+                yaxis=dict(ticksuffix="%"),
+                font = dict(
+                    family="arial",
+                    size=14,
+                ),
+                hovermode='x'
+            )
+    if df.name == 'gdp':
+        fig.update_layout(
             title={
                     'text': "Productivity Growth in OECD Countries",
                     'y':.98,
@@ -77,8 +99,8 @@ def prod_growth_plot(
                     'xanchor': 'center',
                     'yanchor': 'top'
             },
-            yaxis_title="Annual Change",
-            yaxis=dict(ticksuffix="%"),
+            yaxis_title="USD, Current Prices",
+            yaxis=dict(tickpreffix="$"),
             font = dict(
                 family="arial",
                 size=14,
