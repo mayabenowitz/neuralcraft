@@ -1,6 +1,8 @@
 # Neuralcraft
 
-This is a research-based repository regarding the Neuralcraft project and its direction. Our intent is to serve a standalone data application that clearly communicates the project's objectives and vision through data and design. Our first goal is to perform an in-depth analysis of our target market through interactive data visualizations and storytelling. From there we plan to embedd a surveys, Figma prototypes, and a game document for A/B testing. More too come soon!
+Welcome to the research repository of the Neuralcraft project! Here you will find the code for our [Streamlit](https://www.streamlit.io/) app. The app is a living breathing blueprint for the project, designed to walk the reader through the project's objectives and vision through data, design, and immersive storytelling. Readers have the freedom to explore current wireframes, prototypes, datasets, interactive visualizations, game documents, technical writing, blog articles, video content, etc. Everything related to the evolution of this project is stored and versioned here.
+
+We hope to develop this app as a tool for community building and a call-to-action.
 
 For a HIGH level overview of the project check out our [pitch deck](https://github.com/mayabenowitz/neuralcraft/blob/master/reports/neuralcraft-2020-09-20.pdf).
 
