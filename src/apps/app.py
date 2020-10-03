@@ -73,7 +73,7 @@ def prod_growth_plot(
             trendline=trendline
         )
     
-    if df.name == 'productivity_growth':
+    if df.name == 'Productivity Growth':
         fig.update_layout(
                 title={
                         'text': "Productivity Growth in OECD Countries",
@@ -90,7 +90,7 @@ def prod_growth_plot(
                 ),
                 hovermode='x'
             )
-    if df.name == 'gdp':
+    if df.name == 'GDP Per Capita':
         fig.update_layout(
             title={
                     'text': "Productivity Growth in OECD Countries",
@@ -100,7 +100,7 @@ def prod_growth_plot(
                     'yanchor': 'top'
             },
             yaxis_title="USD, Current Prices",
-            yaxis=dict(tickpreffix="$"),
+            yaxis=dict(ticksuffix="$"),
             font = dict(
                 family="arial",
                 size=14,
@@ -125,6 +125,12 @@ def format_trendlines(x):
 # TO DO: give user option to display data dictionary
 def prod_landing_app(dataset):
     df = datasets[dataset]
+    df.name = dataset
+    name = df.name
+
+    if df.name == 'GDP Per Capita':
+        df = df[df['Measure'] == 'USD, current prices, current PPPs']
+        df.name = name
 
     countries = df['Country'].unique().tolist()
     measures = df['Subject'].unique().tolist()
