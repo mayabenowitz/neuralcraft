@@ -1,0 +1,51 @@
+datasets:
+  lpc_by_industry:
+    source: '/data/raw/lpc_by_industry.csv'
+    target: '/data/processed/lpc_by_industry.csv'
+  productivity_growth:
+    source: '/data/raw/productivity_growth.csv'
+    target: '/data/processed/productivity_growth.csv'
+    dropcols:
+      - "LOCATION"
+      - "SUBJECT"
+      - "MEASURE"
+      - "TIME"
+      - "Unit Code"
+      - "PowerCode Code"
+      - "PowerCode"
+      - "Reference Period Code"
+      - "Reference Period"
+      - "Flag Codes"
+      - "Flags"
+  productivity_growth_by_indsutry:
+    source: '/data/raw/productivity_growth_by_industry.csv'
+    target: '/data/processed/productivity_growth_by_industry.csv'
+    dropcols:
+      - "LOCATION"
+      - "SUBJECT"
+      - "MEASURE"
+      - "ACTIVITY"
+      - "TIME"
+      - "Unit Code"
+      - "PowerCode Code"
+      - "PowerCode"
+      - "Reference Period Code"
+      - "Reference Period"
+      - "Flag Codes"
+      - "Flags"
+  gdp_per_capita:
+    source: '/data/raw/gdp_per_capita.csv'
+    target: '/data/processed/gdp_per_capita.csv'
+    dropcols:
+      - 'LOCATION'
+      - 'SUBJECT'
+      - 'MEASURE'
+      - 'TIME'
+      - 'Unit Code'
+      - 'Unit'
+      - 'PowerCode Code'
+      - 'PowerCode'
+      - 'Reference Period Code'
+      - 'Reference Period'
+      - 'Flag Codes'
+      - 'Flags'

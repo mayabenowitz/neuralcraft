@@ -15,6 +15,21 @@ st.beta_set_page_config(
     page_icon = "🌌"
 )
 
+def _max_width_():
+    max_width_str = f"max-width: 1000px;"
+    st.markdown(
+        f"""
+    <style>
+    .reportview-container .main .block-container{{
+        {max_width_str}
+    }}
+    </style>    
+    """,
+        unsafe_allow_html=True,
+    )
+
+_max_width_()
+
 @st.cache
 def load_prod_growth_data():
     df = pd.read_csv(ROOT_DIR+'/data/processed/productivity_growth.csv')
@@ -30,7 +45,7 @@ def prod_growth_plot(
 
     if trendline is None:
         fig = px.line(
-            df, x="Year", y="Value", width=800, template="ggplot2", color=color
+            df, x="Year", y="Value", width=1000, template="ggplot2", color=color
         )
     
     if trendline is not None:
@@ -38,7 +53,7 @@ def prod_growth_plot(
             df,
             x="Year",
             y="Value",
-            width=800,
+            width=1000,
             template="ggplot2",
             color=color,
             trendline=trendline
