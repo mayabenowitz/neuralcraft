@@ -35,8 +35,18 @@ def load_prod_growth_data():
     df = pd.read_csv(ROOT_DIR+'/data/processed/productivity_growth.csv')
     return df
 
-df = load_prod_growth_data()
 
+@st.cache
+def load_gdp_data():
+    df = pd.read_csv(ROOT_DIR+'/data/processed/gdp_per_capita.csv')
+    return df
+
+# load dataframes
+df_prod = load_prod_growth_data()
+df_gdp = load_gdp_data()
+datasets = {'Productivity Growth': df_prod, 'GDP Per Capita': df_gdp}
+
+# lineplots and scatterplots
 def prod_growth_plot(
     df, countries, subject, color="Country", activity=None, trendline=None
 ):
@@ -83,36 +93,48 @@ st.sidebar.markdown('#  🌌 Neuralcraft Labs')
 st.sidebar.markdown('---')
 st.sidebar.markdown('### Menu')
 
-countries = df['Country'].unique().tolist()
-measures = df['Subject'].unique().tolist()
-measures.insert(0, measures[3])
-measures.pop(4)
-trendlines = [None, 'ols', 'lowess']
-
 def format_trendlines(x):
     if x == 'ols':
         return 'OLS Linear Regression'
     if x == 'lowess':
         return 'LOWESS'
 
-country_options = st.sidebar.multiselect("Select Countries", countries, default=['G7'])
-measure_options = st.sidebar.selectbox("Select Y-axis", measures)
-trendline_options = st.sidebar.radio(
-    'Select Trendline', 
-    trendlines, 
-    format_func=format_trendlines
-)
-
+# plotly chart + streamlit sidebar widgets
 # TO DO: give user option to display data dictionary
-try:
-    st.plotly_chart(
-        prod_growth_plot(
-            df,
-            countries=country_options, 
-            subject=measure_options,
-            trendline=trendline_options
-        ),
-        use_container_width=False
+def prod_landing_app(dataset):
+    df = datasets[dataset]
+
+    countries = df['Country'].unique().tolist()
+    measures = df['Subject'].unique().tolist()
+    measures.insert(0, measures[3])
+    measures.pop(4)
+    trendlines = [None, 'ols', 'lowess']
+
+    country_options = st.sidebar.multiselect("Select Countries", countries, default=['G7'])
+    measure_options = st.sidebar.selectbox("Select Y-axis", measures)
+    trendline_options = st.sidebar.radio(
+        'Select Trendline', 
+        trendlines, 
+        format_func=format_trendlines
     )
-except KeyError:
-    st.error('Sorry No Data is Available!')
+    try:
+        st.plotly_chart(
+            prod_growth_plot(
+                df,
+                countries=country_options, 
+                subject=measure_options,
+                trendline=trendline_options
+            ),
+            use_container_width=False
+        )
+    except KeyError:
+        st.error('Sorry No Data is Available!')
+
+dataset_options = st.sidebar.selectbox(
+    "Select Dataset", 
+    list(datasets.keys())
+)
+prod_landing_app(dataset_options)
+    
+
+
