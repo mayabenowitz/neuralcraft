@@ -91,16 +91,16 @@ def prod_growth_plot(
                 hovermode='x'
             )
     if df.name == 'GDP Per Capita':
+        subject = df['Subject'].unique()[0]
         fig.update_layout(
             title={
-                    'text': "Productivity Growth in OECD Countries",
+                    'text': f"{subject}",
                     'y':.98,
                     'x':0.25,
                     'xanchor': 'center',
                     'yanchor': 'top'
             },
             yaxis_title="USD, Current Prices",
-            yaxis=dict(ticksuffix="$"),
             font = dict(
                 family="arial",
                 size=14,
@@ -145,18 +145,23 @@ def prod_landing_app(dataset):
         trendlines, 
         format_func=format_trendlines
     )
+
     try:
-        st.plotly_chart(
-            prod_growth_plot(
-                df,
-                countries=country_options, 
-                subject=measure_options,
-                trendline=trendline_options
-            ),
-            use_container_width=False
-        )
-    except KeyError:
-        st.error('Sorry No Data is Available!')
+        try:
+            st.plotly_chart(
+                prod_growth_plot(
+                    df,
+                    countries=country_options, 
+                    subject=measure_options,
+                    trendline=trendline_options
+                ),
+                use_container_width=False
+            )
+        except KeyError:
+            st.error('Sorry No Data is Available!')
+    except ValueError:
+        if len(country_options) == 0:
+            st.error('You don\'t have a country selected, silly!')
 
 dataset_options = st.sidebar.selectbox(
     "Select Dataset", 
