@@ -116,7 +116,8 @@ def clean_gdp_data(input_filepath, output_filepath):
             'Flags'
 
 
-        ]
+        ],
+        inplace=True
     )
     df.rename(columns={'Time': 'Year'}, inplace=True)
     df['Year'].astype(int)
