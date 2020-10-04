@@ -3,6 +3,9 @@ import sys
 ROOT_DIR = os.path.dirname(os.path.abspath('..'))
 sys.path.insert(0, os.path.abspath(ROOT_DIR))
 
+from pathlib import Path
+import base64
+
 import streamlit as st  
 import pandas as pd
 import numpy as np
@@ -14,6 +17,7 @@ st.beta_set_page_config(
     layout="centered",
     page_icon = "🌌"
 )
+
 
 def _max_width_():
     max_width_str = f"max-width: 1000px;"
@@ -110,9 +114,18 @@ def prod_growth_plot(
     return fig
 
 
+def img_to_bytes(img_path):
+    img_bytes = Path(img_path).read_bytes()
+    encoded = base64.b64encode(img_bytes).decode()
+    return encoded
+
+logo_html = """<p style="float: left; clear: left"><img src='data:image/png;base64,{}' class='img-fluid'></p>
+            <p>Neuralcraft</p>
+            """.format(img_to_bytes("logo.png"))
+
 st.title('How The Looming Productivity Crisis Will Reshape Our World.')
 st.markdown("---")
-st.sidebar.markdown('#  ![logo]() Neuralcraft Labs')
+st.sidebar.markdown(logo_html, unsafe_allow_html=True)
 st.sidebar.markdown('---')
 st.sidebar.markdown('### Menu')
 
