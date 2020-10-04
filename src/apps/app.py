@@ -15,7 +15,7 @@ from src.visualization.vis import query_prod_growth
 
 st.beta_set_page_config(
     layout="centered",
-    page_icon = "🌌"
+    page_icon = "N"
 )
 
 
@@ -92,8 +92,7 @@ def prod_growth_plot(
                     family="arial",
                     size=14,
                 ),
-                hovermode='x',
-                colorway = ["#36B0FF"]
+                hovermode='x'
             )
     if df.name == 'GDP Per Capita':
         subject = df['Subject'].unique()[0]
