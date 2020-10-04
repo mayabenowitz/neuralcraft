@@ -109,9 +109,10 @@ def prod_growth_plot(
         )
     return fig
 
+
 st.title('How The Looming Productivity Crisis Will Reshape Our World.')
 st.markdown("---")
-st.sidebar.markdown('#  🌌 Neuralcraft Labs')
+st.sidebar.markdown('#  ![logo]() Neuralcraft Labs')
 st.sidebar.markdown('---')
 st.sidebar.markdown('### Menu')
 
