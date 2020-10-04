@@ -119,9 +119,21 @@ def img_to_bytes(img_path):
     encoded = base64.b64encode(img_bytes).decode()
     return encoded
 
-logo_html = """<p style="float: left; clear: left"><img src='data:image/png;base64,{}' class='img-fluid'></p>
-            <p>Neuralcraft</p>
-            """.format(img_to_bytes("logo.png"))
+
+def render_svg(svg_file):
+
+    with open(svg_file, "r") as f:
+        lines = f.readlines()
+        svg = "".join(lines)
+
+        b64 = base64.b64encode(svg.encode("utf-8")).decode("utf-8")
+        html = r'<img src="data:image/svg+xml;base64,%s"/>' % b64
+        return html
+
+# logo_html = """<img src='data:image/png;base64,{}' class='img-fluid'></p>
+#             """.format(img_to_bytes("logo3.png"))
+
+logo_html = render_svg('logo3.svg')
 
 st.title('How The Looming Productivity Crisis Will Reshape Our World.')
 st.markdown("---")
