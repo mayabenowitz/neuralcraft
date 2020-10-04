@@ -18,9 +18,26 @@ st.beta_set_page_config(
     page_icon = "🌌"
 )
 
+def get_color_styles(color: str) -> str:
+    """Compile some hacky CSS to override the theme color."""
+    # fmt: off
+    color_selectors = ["a", "a:hover", "*:not(textarea).st-ex:hover", ".st-en:hover"]
+    bg_selectors = [".st-da", "*:not(button).st-en:hover"]
+    border_selectors = [".st-ft", ".st-fs", ".st-fr", ".st-fq", ".st-ex:hover", ".st-en:hover"]
+    # fmt: on
+    css_root = "#root { --primary: %s }" % color
+    css_color = ", ".join(color_selectors) + "{ color: %s !important }" % color
+    css_bg = ", ".join(bg_selectors) + "{ background-color: %s !important }" % color
+    css_border = ", ".join(border_selectors) + "{ border-color: %s !important }" % color
+    other = ".decoration { background: %s !important }" % color
+    return f"<style>{css_root}{css_color}{css_bg}{css_border}{other}</style>"
+
+
+st.write(get_color_styles("#36B0FF"), unsafe_allow_html=True)
+
 
 def _max_width_():
-    max_width_str = f"max-width: 1000px;"
+    max_width_str = f"max-width: 950px;"
     st.markdown(
         f"""
     <style>
@@ -63,7 +80,7 @@ def prod_growth_plot(
 
     if trendline is None:
         fig = px.line(
-            df, x="Year", y="Value", width=1000, template="ggplot2", color=color
+            df, x="Year", y="Value", width=950, template="ggplot2", color=color
         )
     
     if trendline is not None:
@@ -71,7 +88,7 @@ def prod_growth_plot(
             df,
             x="Year",
             y="Value",
-            width=1000,
+            width=950,
             template="ggplot2",
             color=color,
             trendline=trendline
