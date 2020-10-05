@@ -1,4 +1,4 @@
-# Neuralcraft
+![Logo](https://github.com/mayabenowitz/neuralcraft/blob/master/src/apps/logo3.svg)
 
 <br><br/>
 Hello fellow Pioneers!
