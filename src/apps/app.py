@@ -13,11 +13,21 @@ import plotly.express as px
 
 from src.visualization.vis import query_prod_growth
 
+def img_to_bytes(img_path):
+    img_bytes = Path(img_path).read_bytes()
+    encoded = base64.b64encode(img_bytes).decode()
+    return encoded
+
+# favicon = """<img src='data:image/png;base64,{}' class='img-fluid'></p>
+#             """.format(img_to_bytes("logo3.png"))
+
 st.beta_set_page_config(
     layout="centered",
-    page_icon = "N"
+    page_title="Neuralcraft Labs",
+    page_icon = ':smiley:'
 )
 
+st.write(type(img_to_bytes('logo.png')))
 
 def _max_width_():
     max_width_str = f"max-width: 950px;"
@@ -114,12 +124,6 @@ def prod_growth_plot(
     return fig
 
 
-def img_to_bytes(img_path):
-    img_bytes = Path(img_path).read_bytes()
-    encoded = base64.b64encode(img_bytes).decode()
-    return encoded
-
-
 def render_svg(svg_file):
 
     with open(svg_file, "r") as f:
@@ -129,9 +133,6 @@ def render_svg(svg_file):
         b64 = base64.b64encode(svg.encode("utf-8")).decode("utf-8")
         html = r'<img src="data:image/svg+xml;base64,%s"/>' % b64
         return html
-
-# logo_html = """<img src='data:image/png;base64,{}' class='img-fluid'></p>
-#             """.format(img_to_bytes("logo3.png"))
 
 logo_html = render_svg('logo3.svg')
 
