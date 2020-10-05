@@ -20,7 +20,7 @@ class Tesseract(object):
     and functions at run-time.
     """
 
-    def __init__(self, df, precision=None):
+    def __init__(self, df):
         """
         Parameters
         -----------
@@ -58,14 +58,6 @@ class Tesseract(object):
             interactive data viz.
 
         """
-
-        if precision is None:
-            self.df = df
-        if precision is not None:
-            self.precision = precision
-            self.df = df.round(self.precision)
-
-        GridApp.__init__(self, df)
 
     def copy(self):
         """Returns a deepcopy of a Tesseract object.
@@ -129,7 +121,8 @@ class Tesseract(object):
                     unique_dates=False,
                 )
         # if there is no integer digit in the by_date arg the try block is ignored
-        except IndexError:
+        except IndexError as e:
+            # log error
             pass
         return self
 
@@ -155,7 +148,8 @@ class Tesseract(object):
         self.df = [self.df]
         try:
             data = [df.round(self.precision) for df in data]
-        except AttributeError:
+        except AttributeError as e:
+            # log error
             pass
         data = self.df + data
         self.df = enrich(data=data, merge_on=on)
@@ -262,7 +256,8 @@ class Tesseract(object):
 
             try:
                 self.df = self.df.round(self.precision)
-            except AttributeError:
+            except AttributeError as e:
+                # log error
                 pass
 
         # applies filter post-agg and post-calc
