@@ -27,8 +27,6 @@ st.beta_set_page_config(
     page_icon = ':smiley:'
 )
 
-st.write(type(img_to_bytes('logo.png')))
-
 def _max_width_():
     max_width_str = f"max-width: 950px;"
     st.markdown(
@@ -136,11 +134,12 @@ def render_svg(svg_file):
 
 logo_html = render_svg('logo3.svg')
 
-st.title('How The Looming Productivity Crisis Will Reshape Our World.')
+st.title('How The Looming Education Crisis Will Reshape Our World.')
 st.markdown("---")
 st.sidebar.markdown(logo_html, unsafe_allow_html=True)
 st.sidebar.markdown('---')
 st.sidebar.markdown('### Menu')
+
 
 def format_trendlines(x):
     if x == 'ols':
