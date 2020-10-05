@@ -18,6 +18,9 @@ class Tesseract(object):
     time-series data. It instantiates an OLAP-like cube for user-defined dynamic
     grouping, aggregating, filtering and the application of user-defined calculations
     and functions at run-time.
+
+    TO DO: LOTS OF TESTING!
+    Uhhg, why am I always procrastinating with testing...
     """
 
     def __init__(self, df):
