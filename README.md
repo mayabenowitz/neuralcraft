@@ -1,15 +1,14 @@
 ![Logo](https://github.com/mayabenowitz/neuralcraft/blob/master/src/apps/logo3.svg)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
-$~~~~~~~~~~~$
-Hello fellow Pioneers!
-$~~~~~~~~~~~$
+
+Hello fellow Pioneers! <br />
+
 
 Welcome to the research repository of the Neuralcraft project! Here you will find the code for our [Streamlit](https://www.streamlit.io/) app. The app is a **living breathing blueprint for the project**, designed to walk the reader through the project's objectives and vision through data, design, and immersive storytelling. Readers have the freedom to explore current wireframes, prototypes, datasets, interactive visualizations, game documents, data modeling, technical writing, blog articles, video content, etc. Everything related to the evolution of this project is stored and versioned here!
 
-For a HIGH level overview of the project check out our [pitch deck](https://github.com/mayabenowitz/neuralcraft/blob/master/reports/neuralcraft-2020-09-20.pdf).
+For a HIGH level overview of the project check out our [pitch deck](https://github.com/mayabenowitz/neuralcraft/blob/master/reports/neuralcraft-2020-09-20.pdf). <br />
 
-$~~~~~~~~~~~$
 
 ## Pioneer Progress
 
