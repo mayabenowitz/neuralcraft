@@ -26,17 +26,10 @@ class Tesseract(object):
         -----------
         df: pandas DataFrame
 
-        precision: int
-            Sets the precision of the returned DataFrame
-
-
         Attributes
         -----------
         df: pandas DataFrame
             Returns the DataFrame passed to Tesseract
-
-        precision: int
-            Returns the set precision
 
         current_date: datetime object
             Returns the current date, assumed to be the datetime of the last row
@@ -146,11 +139,6 @@ class Tesseract(object):
         # creates a list of dataframes to merge and calls the enrich function
         # to do the heavy lifting
         self.df = [self.df]
-        try:
-            data = [df.round(self.precision) for df in data]
-        except AttributeError as e:
-            # log error
-            pass
         data = self.df + data
         self.df = enrich(data=data, merge_on=on)
         return self
@@ -254,11 +242,6 @@ class Tesseract(object):
 
             self.df = apply_func(by_calcs)
 
-            try:
-                self.df = self.df.round(self.precision)
-            except AttributeError as e:
-                # log error
-                pass
 
         # applies filter post-agg and post-calc
         if post_calc_filter is not None:
@@ -462,11 +445,6 @@ class Tesseract(object):
         df_final = df_final.drop(columns=["index_x", "index_y"])
 
         self.df = df_final
-
-        try:
-            self.df = self.df.round(self.precision)
-        except AttributeError:
-            pass
 
         if post_calc_filter is None:
             return self
