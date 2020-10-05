@@ -52,97 +52,6 @@ class Tesseract(object):
 
         """
 
-    def copy(self):
-        """Returns a deepcopy of a Tesseract object.
-        """
-        self = deepcopy(self)
-        return self
-
-    def date(self, by_date, frequency=None):
-        """Filters a pandas.DataFrame by date.
-
-        Parameters
-        -----------
-        by_date: str
-            Valid args: year_to_date, month_do_date, trailing_{ int }_months,
-            trailing_{ int }_years
-
-        frequency (optional): int
-            Filters the pandas.DataFrame by datetime index to the desired
-            frequency. Valid args: daily, monthly, quarterly, yearly.
-
-        Returns
-        --------
-        self.df: pandas.DataFrame
-            Dataframe filtered by date.
-        """
-        self.current_date = self.df.index.unique()[-1]
-        self.current_year = str(self.current_date.year)
-        self.current_month = self.current_date.month
-
-        # filter dates by frequency
-        if frequency is not None:
-            self.df = filter_dates(self.df, frequency=frequency)
-
-        # filter dates by year or month to date
-        if by_date == "year_to_date":
-            self.df = self.df[self.current_year]
-        if by_date == "month_do_date":
-            self.df = self.df[self.df["month"] == self.current_month]
-
-        try:
-            # extracts the integer digit from the by_date argument if there is one
-            instances = [
-                int(i) for i in by_date.replace("_", " ").split() if i.isdigit()
-            ][0]
-
-            # filters dataframe by trailing months
-            if "trailing" and "month" in by_date:
-                self.df = trailing_dates(
-                    self.df,
-                    start_date=self.current_date,
-                    instances=instances,
-                    unique_dates=False,
-                )
-
-            # filters dataframe by trailing years
-            if "trailing" and "year" in by_date:
-                self.df = trailing_dates(
-                    self.df,
-                    start_date=self.current_date,
-                    instances=instances * 12,
-                    unique_dates=False,
-                )
-        # if there is no integer digit in the by_date arg the try block is ignored
-        except IndexError as e:
-            # log error
-            pass
-        return self
-
-    def merge(self, data, on):
-        """Merges a list of dataframes on the dataframe passed to Tesseract.
-
-        Parameters
-        -----------
-        data: list[pandas.DataFrame]
-            List of dataframes to merge.
-
-        on: list[str]
-            list of columns (keys) to merge the dataframes on.
-
-        Returns
-        --------
-        self.df: pandas.DataFrame
-            Merged dataframe
-        """
-
-        # creates a list of dataframes to merge and calls the enrich function
-        # to do the heavy lifting
-        self.df = [self.df]
-        data = self.df + data
-        self.df = enrich(data=data, merge_on=on)
-        return self
-
     def group(
         self,
         by_fields=None,
@@ -282,10 +191,12 @@ class Tesseract(object):
         # removes the time dimension from the by_fields arg. Resulting fields
         # are used to apply calculations.
         self.by_fields = [
-            i for i in self.by_fields if i != "month" if i != "year" if i != "day"
+            i for i in self.by_fields 
+            if i != "month" if i != "year" if i != "day" if i != 'date'
         ]
 
-        # make this a decorator?
+        # code needs refactoring!
+        # This is a decorator pattern!
         def chop():
             def return_df_slices():
                 # slices the dataframe by field with a list of dictionaries.
@@ -361,6 +272,7 @@ class Tesseract(object):
 
             # if synatax, key, or name error is raised tries to clean the data
             except (SyntaxError, KeyError, NameError) as e:
+                # log error
                 try:
                     print("Data too dirty! Attempting to clean...")
                     col_list = self.df.columns.tolist()
@@ -371,7 +283,8 @@ class Tesseract(object):
                             self.df[col] = (
                                 self.df[col].str.replace("'", "").str.replace('"', "")
                             )
-                        except AttributeError:
+                        except AttributeError as e:
+                            # log error
                             continue
 
                     df_slices_list = return_df_slices()
