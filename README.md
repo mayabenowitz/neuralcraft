@@ -4,22 +4,27 @@
 Hello fellow Pioneers!
 <br><br/>
 
-Welcome to the research repository of the Neuralcraft project! Here you will find the code for our [Streamlit](https://www.streamlit.io/) app. The app is a **living breathing blueprint for the project**, designed to walk the reader through the project's objectives and vision through data, design, and immersive storytelling. Readers have the freedom to explore current wireframes, prototypes, datasets, interactive visualizations, game documents, data modeling, technical writing, blog articles, video content, etc. Everything related to the evolution of this project is stored and versioned here.
+Welcome to the research repository of the Neuralcraft project! Here you will find the code for our [Streamlit](https://www.streamlit.io/) app. The app is a **living breathing blueprint for the project**, designed to walk the reader through the project's objectives and vision through data, design, and immersive storytelling. Readers have the freedom to explore current wireframes, prototypes, datasets, interactive visualizations, game documents, data modeling, technical writing, blog articles, video content, etc. Everything related to the evolution of this project is stored and versioned here!
 
 For a HIGH level overview of the project check out our [pitch deck](https://github.com/mayabenowitz/neuralcraft/blob/master/reports/neuralcraft-2020-09-20.pdf).
 
 
+<br><br/>
 ## Pioneer Progress
 
 ### Week 2: 
 
  * #### Objective: Tell an interactive data story of the problem Neuralcraft intends to solve. Design a few pages of the app to act as community building tool that raises awareness of deeply troubling macroeconomic trends in education.
  * #### Intended Outcomes: Recruit developers and creatives to join the cause. Organize a movement-first business!
+ * #### Completed Tasks: Loaded and cleaned another dataset, wrote code to handle new data for interactive visualizations, polished app front-end, added a logo, wireframed out some ideas.
+
 
 ![Data App](https://github.com/mayabenowitz/neuralcraft/blob/master/reports/week-2.png)
+![Data App](https://github.com/mayabenowitz/neuralcraft/blob/master/reports/week-2.5.png)
+![Data App](https://github.com/mayabenowitz/neuralcraft/blob/master/reports/week-2.8.png)
 
-
-Project Organization
+<br><br/>
+Repository Organization
 ------------
 
     ├── LICENSE
