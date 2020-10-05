@@ -11,7 +11,7 @@ For a HIGH level overview of the project check out our [pitch deck](https://gith
 
 ## Pioneer Progress
 
-![Data App]()
+![Data App](https://github.com/mayabenowitz/neuralcraft/blob/master/reports/week-2.png)
 
 
 Project Organization
