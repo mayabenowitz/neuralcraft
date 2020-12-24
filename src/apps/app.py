@@ -14,7 +14,6 @@ import plotly.express as px
 
 from src.visualization.vis import query_prod_growth
 
-
 def img_to_bytes(img_path):
     img_bytes = Path(img_path).read_bytes()
     encoded = base64.b64encode(img_bytes).decode()
@@ -116,7 +115,7 @@ def prod_growth_plot(
             },
             yaxis_title="USD, Current Prices",
             font=dict(family="arial", size=14),
-            hovermode="x",
+            hovermode="x unified",
         )
     return fig
 
